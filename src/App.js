@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
+import Navbar from "./components/navbar";
 import Search from "./components/search";
 import Saved from "./components/saved";
-import Results from "./components/results";
 
-class App extends Component {
-  render() {
+const App = () => {
     return (
-      <div>
-        <Search />
-        <Results />
-        <Saved />
-      </div>
+      <Router>
+    <div>
+      <Navbar />
+      <Route exact path="/" component={Search} />
+      <Route exact path="/saved" component={Saved} />
+    </div>
+  </Router>
     );
   }
-}
+
 
 export default App;
