@@ -24,7 +24,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 var database = mongoose.connection;
-var db = require("./client/models/Article.js");
+var db = require("./models/Article.js");
 
 database.on('error', function(err){
   console.log("Mongoose Error: ", err);
@@ -34,10 +34,10 @@ database.once("open", function(){
   console.log("mongoose connection successful");
 });
 
-require("./client/routes/api.js")(app, db, express);
+require("./routes/api.js")(app, db, express);
 
 // app.get("*", function(req, res) {
-//   res.sendFile(path.join(__dirname, "./client/public/index.html"));
+//   res.sendFile(path.join(__dirname, "./client/build/index.html"));
 // });
 
 app.listen(PORT, function() {

@@ -1,6 +1,5 @@
 import React from "react";
 import API from "../API.js";
-import db from "../../models/Article.js";
 
 
 class Search extends React.Component {
@@ -40,8 +39,9 @@ class Search extends React.Component {
     this.setState({endYear: input})
   }
 
-  saveArticle = (id) => {
-    db.save(id).then((response) => {
+  saveArticle = (object) => {
+    
+    API.save(object).then((response) => {
       console.log(response)
     })
   }
@@ -73,7 +73,14 @@ class Search extends React.Component {
       
       <ul>
         {this.state.results.length > 0 ? (console.log(this.state.results), this.state.results.map((result) => {
-      return <li key={result.headline}><a href={result.web_url}>{result.headline.main}</a> <button id={result._id} onClick={this.saveArticle(result._id)}>Save Article</button>
+      return <li key={result.headline}><a href={result.web_url}>{result.headline.main}</a> <button id={result._id} onClick={() => {this.saveArticle({
+        
+          title: result.headline.main,
+          link: result.web_url,
+          author: result.byline.original,
+          date: result.pub_date.split("T")[0]
+        
+      })}}>Save Article</button>
       <br/> 
       {result.byline.original} 
       <br/>

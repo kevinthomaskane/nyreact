@@ -15,16 +15,16 @@ var ArticleSchema = new Schema({
     required: true
   },
 
-  saved: {
-    type: Boolean,
-    default: false
+  author: {
+    type: String,
+    required: true
   },
-  
-  note: {
-    type: Schema.Types.ObjectId,
-    ref: "Note"
-  }
 
+  date: {
+    type: String,
+    required: true
+  }
+  
 });
 
 var Article = mongoose.model("Article", ArticleSchema);
