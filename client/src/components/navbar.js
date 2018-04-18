@@ -16,7 +16,7 @@ const Navbar = props => {
   <div style={style}>
    <div className="row">
       <div className="col-md-3">
-      <Link to="/saved"> Saved Articles {props.score}</Link>
+      <Link to="/saved"> Saved Articles</Link>
       </div>
     </div>
 </div>
