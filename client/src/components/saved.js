@@ -1,33 +1,37 @@
 import React from "react";
+import Navbar from "./navbar";
+import API from "../API";
 
-const Saved = props => {
+class Saved extends React.Component {
 
-  const style = {
-    backgroundColor: "purple",
-    color: "white",
-    height: 100,
-    paddingTop: 30,
-    boxShadow: "0px 10px 10px grey" 
-
+  state = {
+    saved: []
   }
 
-  return (
-  <div style={style}>
-   <div className="row">
-    <div className="col-md-1"></div>
-      <div className="col-md-3">
-      <h3>Score: {props.score}</h3>
+  componentDidMount(){
+    API.getSaved().then((response) => {
+      this.setState({saved: response.data})
+    })
+  }
+
+  render() {
+    console.log(this.state.saved)
+
+    return (
+      <div>
+        <ul>
+        {this.state.saved.map((article) => {
+          return(
+          <li>
+            <a href={article.link}>{article.title}</a><br/>
+            {article.author}<br/>
+            {article.date}
+          </li>)
+        })}
+        </ul>
       </div>
-      <div className="col-md-4">
-      <h3>{props.message}</h3>
-      </div>
-      <div className="col-md-3">
-      <h3>High Score: {props.highScore}</h3>
-      </div>
-      <div className="col-md-1"></div>
-    </div>
-</div>
-)
+    )
+  }
 };
 
 export default Saved;

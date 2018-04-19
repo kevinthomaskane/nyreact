@@ -12,4 +12,11 @@ module.exports = function (app, db, express) {
         res.send(update)
       });
   });
+
+  app.get("/getSaved", function(req, res){
+    db.find({}).then(function(response){
+      console.log(response)
+      res.json(response)
+    })
+  })
 }
