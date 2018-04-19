@@ -11,7 +11,6 @@ const App = () => {
     <div>
       <Navbar />
       <Route exact path="/" component={Search} />
-      <Route exact path="/saved" component={Saved} />
     </div>
   </Router>
     );

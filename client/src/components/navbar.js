@@ -16,10 +16,7 @@ const Navbar = props => {
   <div style={style}>
    <div className="row">
       <div className="col-md-3">
-      <Link to="/saved"> Saved Articles</Link>
-      </div>
-      <div className="col-md-3">
-      <Link to="/"> Search</Link>
+      <Link to="/"> NYT Scraper</Link>
       </div>
     </div>
 </div>

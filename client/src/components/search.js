@@ -1,4 +1,5 @@
 import React from "react";
+import Saved from "./saved.js";
 import API from "../API.js";
 
 
@@ -45,12 +46,6 @@ class Search extends React.Component {
     })
   }
 
-  // componentDidMount = () => {
-  //   API.search("trump", 20110101, 20160101).then((response)=>{
-  //     console.log(response)
-  //   })
-  // }
-
   render(){
     return (
       <div className="container">
@@ -93,6 +88,7 @@ class Search extends React.Component {
         </div>)
     })}
       </div>
+      <Saved />
     </div>
     )
   }
