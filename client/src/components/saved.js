@@ -7,13 +7,7 @@ class Saved extends React.Component {
   state = {
     saved: []
   }
-
-  componentDidMount(){
-    API.getSaved().then((response) => {
-      this.setState({saved: response.data})
-    })
-  }
-
+  
   deleteSaved(id){
     API.deleteSaved(id).then((response) => {
       console.log(response)

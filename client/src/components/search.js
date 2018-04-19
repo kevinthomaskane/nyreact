@@ -1,6 +1,7 @@
 import React from "react";
 import Saved from "./saved.js";
 import API from "../API.js";
+import Results from "./results.js";
 
 
 class Search extends React.Component {
@@ -10,7 +11,12 @@ class Search extends React.Component {
     beginYear: 20160101,
     endYear: 20180101,
     results: [],
-    open: true
+  }
+
+  componentDidMount(){
+    API.getSaved().then((response) => {
+      this.setState({saved: response.data})
+    })
   }
 
   getArticles = () => {
@@ -43,6 +49,7 @@ class Search extends React.Component {
   saveArticle = (object) => {
     
     API.save(object).then((response) => {
+this.setState({saved: true})
     })
   }
 
@@ -63,32 +70,8 @@ class Search extends React.Component {
             <input onChange={this.handleEndChange} className="form-control" id="endYear" placeholder="YYYYMMDD" />
            </div>
           <button onClick={this.getArticles} type="submit" className="btn btn-primary">Submit</button>
-      
-      <div id="accordian">
-        {this.state.results.map((result) => {
-      return (<div className="card">
-      <div className="card-header" id="headingOne" expanded={this.state.open}>
-        <h5 className="mb-0">
-        <a href={result.web_url} >{result.headline.main}</a>
-      </h5>
-          <button id={result._id} onClick={() => {this.saveArticle({
-              title: result.headline.main,
-              link: result.web_url,
-              author: result.byline.original,
-              date: result.pub_date.split("T")[0]})
-          this.setState({ open: !this.state.open })
-          }}>Save Article</button>
-      </div>
-        <div id="{{this._id}}" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-        <div className="card-body">
-        {result.byline.original} 
-         <div className="summaryArea">{result.pub_date.split("T")[0]}</div>
-        </div>
-        </div>
-        </div>)
-    })}
-      </div>
-      <Saved />
+      <Results articles={this.state.results} save={this.saveArticle} />
+      <Saved save={this.saveArticle}/>
     </div>
     )
   }
