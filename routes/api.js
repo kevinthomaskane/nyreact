@@ -14,6 +14,8 @@ module.exports = function (app, db, express) {
   app.get("/getSaved", function(req, res){
     db.find({}).then(function(response){
       res.json(response)
+    }).catch(function(err){
+      console.log(err)
     })
   });
 
