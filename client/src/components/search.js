@@ -11,6 +11,7 @@ class Search extends React.Component {
     beginYear: 20160101,
     endYear: 20180101,
     results: [],
+    saved: []
   }
 
   componentDidMount(){
@@ -25,9 +26,13 @@ class Search extends React.Component {
     });
   };
 
-  printArticles = () => {
-    this.state.results.map((result, i) => {
-      return <li>result</li>
+  deleteSaved(id){
+    API.deleteSaved(id).then((response) => {
+      console.log(response)
+      var newArray = this.state.saved.filter((item) => {
+        return item.title !== response.data.title
+      })
+      this.setState({saved: newArray})
     })
   }
 
@@ -47,9 +52,10 @@ class Search extends React.Component {
   }
 
   saveArticle = (object) => {
-    
     API.save(object).then((response) => {
-this.setState({saved: true})
+      API.getSaved().then((response) => {
+        this.setState({saved: response.data})
+      })
     })
   }
 
@@ -71,7 +77,7 @@ this.setState({saved: true})
            </div>
           <button onClick={this.getArticles} type="submit" className="btn btn-primary">Submit</button>
       <Results articles={this.state.results} save={this.saveArticle} />
-      <Saved save={this.saveArticle}/>
+      <Saved saved={this.state.saved}/>
     </div>
     )
   }

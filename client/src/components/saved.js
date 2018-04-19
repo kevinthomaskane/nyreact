@@ -2,28 +2,12 @@ import React from "react";
 import Navbar from "./navbar";
 import API from "../API";
 
-class Saved extends React.Component {
-
-  state = {
-    saved: []
-  }
-  
-  deleteSaved(id){
-    API.deleteSaved(id).then((response) => {
-      console.log(response)
-      var newArray = this.state.saved.filter((item) => {
-        return item.title !== response.data.title
-      })
-      this.setState({saved: newArray})
-    })
-  }
-
-  render() {
+const Saved = props => {
 
     return (
       <div>
         <ul>
-        {this.state.saved.map((article) => {
+        {props.saved.map((article) => {
           return(
           <li>
             <a href={article.link}>{article.title}</a><br/>
@@ -38,6 +22,5 @@ class Saved extends React.Component {
       </div>
     )
   }
-};
 
 export default Saved;
