@@ -13,6 +13,10 @@ export default {
 
   getSaved: function(){
     return axios.get("/getSaved");
+  },
+
+  deleteSaved: function(id){
+    return axios.delete("/delete/" + id);
   }
 
 };

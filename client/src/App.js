@@ -7,7 +7,7 @@ import Saved from "./components/saved";
 
 const App = () => {
     return (
-      <Router>
+  <Router>
     <div>
       <Navbar />
       <Route exact path="/" component={Search} />

@@ -8,12 +8,12 @@ class Search extends React.Component {
     search: "",
     beginYear: 20160101,
     endYear: 20180101,
-    results: []
+    results: [],
+    open: true
   }
 
   getArticles = () => {
     API.search(this.state.search, this.state.beginYear, this.state.endYear).then((response)=>{
-      console.log(response)
       this.setState({results: response.data.response.docs})
     });
   };
@@ -42,7 +42,6 @@ class Search extends React.Component {
   saveArticle = (object) => {
     
     API.save(object).then((response) => {
-      console.log(response)
     })
   }
 
@@ -53,7 +52,6 @@ class Search extends React.Component {
   // }
 
   render(){
-    console.log(this.state)
     return (
       <div className="container">
        
@@ -71,23 +69,30 @@ class Search extends React.Component {
            </div>
           <button onClick={this.getArticles} type="submit" className="btn btn-primary">Submit</button>
       
-      <ul>
-        {this.state.results.length > 0 ? (console.log(this.state.results), this.state.results.map((result) => {
-      return <li key={result.headline}><a href={result.web_url}>{result.headline.main}</a> <button id={result._id} onClick={() => {this.saveArticle({
-        
-          title: result.headline.main,
-          link: result.web_url,
-          author: result.byline.original,
-          date: result.pub_date.split("T")[0]
-        
-      })}}>Save Article</button>
-      <br/> 
-      {result.byline.original} 
-      <br/>
-      {result.pub_date.split("T")[0]}
-      </li>
-    })) : console.log("nothing")}
-      </ul>
+      <div id="accordian">
+        {this.state.results.map((result) => {
+      return (<div className="card">
+      <div className="card-header" id="headingOne" expanded={this.state.open}>
+        <h5 className="mb-0">
+        <a href={result.web_url} >{result.headline.main}</a>
+      </h5>
+          <button id={result._id} onClick={() => {this.saveArticle({
+              title: result.headline.main,
+              link: result.web_url,
+              author: result.byline.original,
+              date: result.pub_date.split("T")[0]})
+          this.setState({ open: !this.state.open })
+          }}>Save Article</button>
+      </div>
+        <div id="{{this._id}}" className="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+        <div className="card-body">
+        {result.byline.original} 
+         <div className="summaryArea">{result.pub_date.split("T")[0]}</div>
+        </div>
+        </div>
+        </div>)
+    })}
+      </div>
     </div>
     )
   }
