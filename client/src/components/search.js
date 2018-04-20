@@ -2,6 +2,34 @@ import React from "react";
 import Saved from "./saved.js";
 import API from "../API.js";
 import Results from "./results.js";
+import image from "./background.jpg";
+
+const styles = {
+  body: {
+      background: `linear-gradient( rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4) ), url(${image})`,
+      height: 1050
+  },
+  header: {
+    fontFamily: 'Vollkorn SC',
+    zIndex: 100,
+    fontSize: 50,
+    paddingTop: 225,
+    textAlign: "center"
+  },
+  search: {
+    width: "50%",
+    marginLeft: 250,
+    borderRadius: 5,
+    height: 40
+  },
+  button: {
+    display: "inline-block",
+    height: 30,
+    width: 80,
+    paddingBottom: 30,
+    textAlign: "center"
+  }
+};
 
 
 class Search extends React.Component {
@@ -9,7 +37,7 @@ class Search extends React.Component {
   state = {
     search: "",
     beginYear: 20160101,
-    endYear: 20180101,
+    endYear: 20180404,
     results: [],
     saved: []
   }
@@ -40,16 +68,6 @@ class Search extends React.Component {
     this.setState({search: input})
   }
 
-  handleBeginChange = event => {
-    let input = event.target.value
-    this.setState({beginYear: input})
-  }
-
-  handleEndChange = event => {
-    let input = event.target.value
-    this.setState({endYear: input})
-  }
-
   saveArticle = (object) => {
     API.save(object).then((response) => {
       API.getSaved().then((response) => {
@@ -60,23 +78,16 @@ class Search extends React.Component {
 
   render(){
     return (
+      <div style={styles.body}>
       <div className="container">
-       
           <div className="form-group">
-            <label for="search">Article Search</label>
-            <input onChange={this.handleSearchChange} type="text" className="form-control" id="search" placeholder="Enter search terms" />
+          <h2 style={styles.header} >The New York Times</h2>
+            <input style={styles.search} onChange={this.handleSearchChange} type="text" placeholder="Enter search terms" />
+          <button style={styles.button} onClick={this.getArticles} type="submit" className="btn btn-dark">Search</button>
           </div>
-          <div className="form-group">
-            <label for="endYear">Begin Year</label>
-            <input onChange={this.handleBeginChange} className="form-control" id="endYear" placeholder="YYYYMMDD" />
-           </div>
-           <div className="form-group">
-            <label for="endYear">End Year</label>
-            <input onChange={this.handleEndChange} className="form-control" id="endYear" placeholder="YYYYMMDD" />
-           </div>
-          <button onClick={this.getArticles} type="submit" className="btn btn-primary">Submit</button>
       <Results articles={this.state.results} save={this.saveArticle} />
       <Saved saved={this.state.saved} deleteSaved={this.deleteSaved}/>
+    </div>
     </div>
     )
   }
