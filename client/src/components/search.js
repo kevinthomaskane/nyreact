@@ -14,7 +14,7 @@ class Search extends React.Component {
     saved: []
   }
 
-  componentDidMount(){
+  componentDidMount = () => {
     API.getSaved().then((response) => {
       this.setState({saved: response.data})
     })
@@ -26,9 +26,8 @@ class Search extends React.Component {
     });
   };
 
-  deleteSaved(id){
+  deleteSaved = (id) => {
     API.deleteSaved(id).then((response) => {
-      console.log(response)
       var newArray = this.state.saved.filter((item) => {
         return item.title !== response.data.title
       })
@@ -77,7 +76,7 @@ class Search extends React.Component {
            </div>
           <button onClick={this.getArticles} type="submit" className="btn btn-primary">Submit</button>
       <Results articles={this.state.results} save={this.saveArticle} />
-      <Saved saved={this.state.saved}/>
+      <Saved saved={this.state.saved} deleteSaved={this.deleteSaved}/>
     </div>
     )
   }

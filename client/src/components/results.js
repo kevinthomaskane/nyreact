@@ -8,7 +8,8 @@ const Search = props => {
     
   return (
       <div className="card">
-          {props.articles.map((result) => {
+          {props.articles.map((result, i) => {
+            if (i < 5){
             return (<div id="card-body">
                         <div class="card-header">
                             <h2 className="mb-0">
@@ -27,8 +28,12 @@ const Search = props => {
                             <footer class="blockquote-footer">{result.pub_date.split("T")[0]}</footer>
                           </blockquote>
                         </div>
-                    </div>)})}
-          </div>)
+                    </div>)
+                    }
+                  }
+                )
+              }
+      </div>)
     
   
   

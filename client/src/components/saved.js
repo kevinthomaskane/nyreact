@@ -1,5 +1,4 @@
 import React from "react";
-import Navbar from "./navbar";
 import API from "../API";
 
 const Saved = props => {
@@ -14,7 +13,7 @@ const Saved = props => {
             {article.author}<br/>
             {article.date}
             <button onClick={() => {
-              this.deleteSaved(article._id)
+              props.deleteSaved(article._id)
             }}>Remove from saved</button>
           </li>)
         })}

@@ -20,7 +20,6 @@ module.exports = function (app, db, express) {
   });
 
   app.delete("/delete/:id", function(req, res){
-    console.log(req.params)
     db.findOneAndRemove({_id: req.params.id}).then(function(response){
       res.json(response)
     })
